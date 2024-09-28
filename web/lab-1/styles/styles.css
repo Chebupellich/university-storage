@@ -1,0 +1,157 @@
+@import url('../assets/fonts/fonts.css');
+@import url('../styles/root.css');
+
+header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: var(--second-background-color);
+    border-bottom: 2px solid var(--third-color);
+    padding: clamp(0.5em, 2vw, 3em) clamp(1em, 2vw, 10em)
+}
+
+.main-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+    font-size: 2em;
+    font-family: 'Montserrat Bold', sans-serif;
+}
+
+.folder {
+    align-self: flex-end;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.logo {
+    line-height: 1;
+}
+
+.search-task-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 5px;
+    border-radius: 30px;
+
+    background-color: var(--third-color);
+    outline: 2px solid transparent;
+    fill: #fff;
+
+    transition: outline-color 0.3s ease, fill 0.3s ease;
+}
+
+.search-task-wrap input {
+    height: 24px;
+    border: none;
+    border-radius: 24px;
+
+    padding: 0 5px;
+
+    font-size: 90%;
+    font-family: 'Montserrat Regular', sans-serif;
+}
+
+.search-task-wrap input:focus {
+    outline: none;
+}
+
+.search-task-wrap svg {
+    width: 24px;
+    height: 24px;
+}
+
+.search-task-wrap:focus-within,
+.search-task-wrap svg:focus-within {
+    outline-color: var(--extra-color);
+    fill: var(--extra-color);
+}
+
+section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1em 2em;
+
+    background-color: var(--main-background-color);
+    border-bottom: 2px solid var(--third-color);
+}
+
+.projects {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 1.6em;
+    font-family: 'Montserrat Regular', sans-serif;
+}
+
+section h1 {
+    font-size: 2em;
+    font-family: 'Montserrat Bold', sans-serif;
+}
+
+.edit-project {
+    margin-right: 10px;
+
+    font-size: 1.2em;
+    font-family: 'Montserrat Regular', sans-serif;
+    text-decoration: underline;
+
+    color: var(--extra-color);
+}
+
+#more-project {
+    width: 24px;
+    height: 24px;
+}
+
+table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    empty-cells: hide;
+}
+
+thead td {
+    border: 2px solid var(--extra-color);
+    padding: 0.5em 1em;
+    border-radius: 10px;
+
+    background-color: var(--second-background-color);
+}
+
+.table-header {
+    font-size: 1.2em;
+    font-family: 'Montserrat Bold', sans-serif;
+}
+
+.create-task {
+    font-size: 1.2em;
+    font-family: 'Montserrat Regular', sans-serif;
+}
+
+table td {
+    text-align: center;
+    width: 300px;
+}
+
+tbody td {
+    border: 2px solid var(--extra-color);
+    border-radius: 10px;
+    background-color: var(--main-background-color);
+
+    max-width: 200px;
+}

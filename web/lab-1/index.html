@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./styles/root.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/card.css" />
+
+    <title>atl-app</title>
+</head>
+
+<body>
+    <header>
+        <div class="main-logo">
+            <h1 class="logo">ATL</h1>
+            <p class="folder">/home</p>
+        </div>
+        <div class="search-task-wrap">
+            <input type="text" id="searchField" placeholder="Название задачи">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>magnify</title>
+                <path
+                    d="M14.5,3A6.5,6.5 0 0,0 8,9.5C8,11.11 8.59,12.59 9.56,13.73L9.29,14H8.5L3.5,19L5,20.5L10,15.5V14.71L10.27,14.44C11.41,15.41 12.89,16 14.5,16A6.5,6.5 0 0,0 21,9.5A6.5,6.5 0 0,0 14.5,3M14.5,5C17,5 19,7 19,9.5C19,12 17,14 14.5,14C12,14 10,12 10,9.5C10,7 12,5 14.5,5Z" />
+            </svg>
+        </div>
+    </header>
+
+    <section>
+        <div class="projects">
+            <img src="./assets/icons/menu(1).svg" id="more-project" alt="more-options">
+            <p>Projects</p>
+        </div>
+        <div>
+            <h1>ProjectName</h1>
+        </div>
+        <div class="edit-project">
+            <p>edit project</p>
+        </div>
+    </section>
+
+    <main>
+        <table>
+            <thead>
+                <tr class="table-header">
+                    <td>Tasks</td>
+                    <td>In work</td>
+                    <td>Completed</td>
+                </tr>
+                <tr class="create-task">
+                    <td>Add task</td>
+                    <td>Add task</td>
+                    <td>Add task</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="card">
+                            <div class="head">
+                                <p>Asbdabjsdbjasbdjbadasdasdasdasdad</p>
+                                <img src="./assets/icons/dots-horizontal.svg" id="more-task" alt="more-options">
+                            </div>
+                            <div class="body">
+                                <p class="date">28.09.2024</p>
+                                <label class="customCheckbox">
+                                    <input type="checkbox" id="card-checkbox">
+                                    <span class="checkboxImage">
+                                        <img src="assets/icons/circle-outline.svg" alt="Incomplete"
+                                            class="uncheckedImage" />
+                                        <img src="assets/icons/check-circle-outline.svg" alt="Complete"
+                                            class="checkedImage" />
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                    <td>Покушать</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>CRY</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+
+</html>

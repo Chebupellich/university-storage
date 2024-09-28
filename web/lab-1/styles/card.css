@@ -1,0 +1,58 @@
+.card .head,
+.card .body {
+    max-width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 1.2em;
+    font-family: 'Montserrat Regular', sans-serif;
+    padding: 0.5em 1em;
+}
+
+.card .head p {
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.card img {
+    width: 24px;
+    height: 24px;
+}
+
+.customCheckbox input[type="checkbox"] {
+    display: none;
+}
+
+.customCheckbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.customCheckbox img {
+    width: 24px;
+    height: 24px;
+}
+
+.customCheckbox .checkboxImage {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+.customCheckbox .checkboxImage .uncheckedImage {
+    display: none;
+}
+
+.customCheckbox input[type="checkbox"]:checked+.checkboxImage .checkedImage {
+    display: none;
+}
+
+.customCheckbox input[type="checkbox"]:checked+.checkboxImage .uncheckedImage {
+    display: block;
+}
