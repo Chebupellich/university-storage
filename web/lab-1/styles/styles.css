@@ -72,8 +72,8 @@ header {
 
 .search-task-wrap:focus-within,
 .search-task-wrap svg:focus-within {
-    outline-color: var(--extra-color);
-    fill: var(--extra-color);
+    outline-color: var(--main-background-color);
+    fill: var(--main-background-color);
 }
 
 section {
@@ -118,40 +118,89 @@ section h1 {
 }
 
 table {
+    margin: 0 auto;
+    width: 99%;
+    table-layout: fixed;
+    border-spacing: 20px 10px;
+}
+
+td {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+}
+
+tr {
+    width: 100%;
+}
+
+.table-header td {
+    height: calc(2em + 5vh);
+}
+
+.table-header div {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    empty-cells: hide;
-}
+    align-items: center;
 
-thead td {
-    border: 2px solid var(--extra-color);
-    padding: 0.5em 1em;
-    border-radius: 10px;
+    height: 100%;
+    padding: 5px 0;
+    padding-left: 20px;
 
-    background-color: var(--second-background-color);
-}
-
-.table-header {
-    font-size: 1.2em;
+    font-size: calc(1em + 1.5vh);
     font-family: 'Montserrat Bold', sans-serif;
+    border-radius: 5px;
 }
 
-.create-task {
-    font-size: 1.2em;
+.create-task div {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 5px 0;
+    padding-left: 10px;
+
+    border: 1px solid var(--extra-color);
+    border-radius: 5px;
+
+    transition: border-color 0.3s ease;
+}
+
+.create-task div input {
+    height: 90%;
+    width: 90%;
+    border: none;
+
+    padding: 0 5px;
+
+    font-size: 90%;
     font-family: 'Montserrat Regular', sans-serif;
 }
 
-table td {
-    text-align: center;
-    width: 300px;
+.create-task div input:focus {
+    outline: none;
 }
 
-tbody td {
-    border: 2px solid var(--extra-color);
-    border-radius: 10px;
-    background-color: var(--main-background-color);
+.create-task div:focus-within {
+    border-color: var(--third-color);
+}
 
-    max-width: 200px;
+td ul {
+    padding-top: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 15px;
+}
+
+.table-tasks-col div {
+    background-color: var(--table-bg-1);
+}
+
+.table-work-col div {
+    background-color: var(--table-bg-2);
+}
+
+.table-complete-col div {
+    background-color: var(--table-bg-3);
 }

@@ -6,12 +6,16 @@
 
 :root {
     font-size: 10px;
-    --main-background-color: #E5E3C9;
-    --second-background-color: #B4CFB0;
-    --third-color: #94B49F;
-    --extra-color: #789395;
+    --main-background-color: #f4eeff;
+    --second-background-color: #dcd6f7;
+    --third-color: #a6b1e1;
+    --extra-color: #424874;
     --body-color: #FFFFFF;
     --text-color: #000000;
+
+    --table-bg-1: #6eb6ff;
+    --table-bg-2: #ffde7d;
+    --table-bg-3: #55e9bc;
 }
 
 :root[data-theme="light"] {}

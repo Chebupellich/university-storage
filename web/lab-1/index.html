@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="./styles/root.css" />
     <link rel="stylesheet" type="text/css" href="./styles/styles.css" />
-    <link rel="stylesheet" type="text/css" href="./styles/card.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/checkbox.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/note.css" />
 
     <title>atl-app</title>
 </head>
@@ -41,29 +42,42 @@
 
     <main>
         <table>
-            <thead>
-                <tr class="table-header">
-                    <td>Tasks</td>
-                    <td>In work</td>
-                    <td>Completed</td>
-                </tr>
-                <tr class="create-task">
-                    <td>Add task</td>
-                    <td>Add task</td>
-                    <td>Add task</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td>
-                        <div class="card">
-                            <div class="head">
-                                <p>Asbdabjsdbjasbdjbadasdasdasdasdad</p>
-                                <img src="./assets/icons/dots-horizontal.svg" id="more-task" alt="more-options">
-                            </div>
-                            <div class="body">
-                                <p class="date">28.09.2024</p>
+            <tr class="table-header">
+                <td class="table-tasks-col">
+                    <div>Tasks</div>
+                </td>
+                <td class="table-work-col">
+                    <div>In work</div>
+                </td>
+                <td class="table-complete-col">
+                    <div>Completed</div>
+                </td>
+            </tr>
+            <tr class="create-task">
+                <td>
+                    <div><input type="text" id="addTaskField-tasks" placeholder="Add task"></div>
+                </td>
+                <td>
+                    <div><input type="text" id="addTaskField-work" placeholder="Add task"></div>
+                </td>
+                <td>
+                    <div><input type="text" id="addTaskField-complete" placeholder="Add task"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul class="note">
+                        <li>
+                            <a href="#">
+                                <h2>Title #1</h2>
+                                <p>Text Content #1</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <h2>Title #2</h2>
+                                <p>Text Content #2</p>
+
                                 <label class="customCheckbox">
                                     <input type="checkbox" id="card-checkbox">
                                     <span class="checkboxImage">
@@ -73,17 +87,13 @@
                                             class="checkedImage" />
                                     </span>
                                 </label>
-                            </div>
-                        </div>
-                    </td>
-                    <td>Покушать</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>CRY</td>
-                </tr>
-            </tbody>
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
         </table>
     </main>
 </body>
