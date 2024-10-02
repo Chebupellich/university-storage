@@ -162,9 +162,10 @@ tr {
     padding-left: 10px;
 
     border: 1px solid var(--extra-color);
+    fill: var(--extra-color);
     border-radius: 5px;
 
-    transition: border-color 0.3s ease;
+    transition: border-color 0.2s ease, fill 0.2s ease;
 }
 
 .create-task div input {
@@ -184,6 +185,12 @@ tr {
 
 .create-task div:focus-within {
     border-color: var(--third-color);
+    fill: var(--third-color);
+}
+
+.create-task svg {
+    height: 24px;
+    width: 24px;
 }
 
 td ul {

@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="./styles/preload.css" />
     <link rel="stylesheet" type="text/css" href="./styles/root.css" />
     <link rel="stylesheet" type="text/css" href="./styles/styles.css" />
     <link rel="stylesheet" type="text/css" href="./styles/checkbox.css" />
@@ -12,6 +14,15 @@
 </head>
 
 <body>
+
+
+    <div class="preloader">
+        <div>
+            <img src="./assets/icons/duck.gif" alt="duck">
+            <p>Загрузка...</p>
+        </div>
+    </div>
+
     <header>
         <div class="main-logo">
             <h1 class="logo">ATL</h1>
@@ -19,7 +30,7 @@
         </div>
         <div class="search-task-wrap">
             <input type="text" id="searchField" placeholder="Название задачи">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="height: 24px; width: 24px;">
                 <title>magnify</title>
                 <path
                     d="M14.5,3A6.5,6.5 0 0,0 8,9.5C8,11.11 8.59,12.59 9.56,13.73L9.29,14H8.5L3.5,19L5,20.5L10,15.5V14.71L10.27,14.44C11.41,15.41 12.89,16 14.5,16A6.5,6.5 0 0,0 21,9.5A6.5,6.5 0 0,0 14.5,3M14.5,5C17,5 19,7 19,9.5C19,12 17,14 14.5,14C12,14 10,12 10,9.5C10,7 12,5 14.5,5Z" />
@@ -39,9 +50,8 @@
             <p>edit project</p>
         </div>
     </section>
-
     <main>
-        <table>
+        <table id="main-table">
             <tr class="table-header">
                 <td class="table-tasks-col">
                     <div>Tasks</div>
@@ -55,47 +65,57 @@
             </tr>
             <tr class="create-task">
                 <td>
-                    <div><input type="text" id="addTaskField-tasks" placeholder="Add task"></div>
+                    <div>
+                        <input type="text" id="addTaskField-tasks" placeholder="Add task">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                        </svg>
+                    </div>
                 </td>
                 <td>
-                    <div><input type="text" id="addTaskField-work" placeholder="Add task"></div>
+                    <div>
+                        <input type="text" id="addTaskField-work" placeholder="Add task">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                        </svg>
+                    </div>
                 </td>
                 <td>
-                    <div><input type="text" id="addTaskField-complete" placeholder="Add task"></div>
+                    <div>
+                        <input type="text" id="addTaskField-complete" placeholder="Add task">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                        </svg>
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <ul class="note">
-                        <li>
-                            <a href="#">
-                                <h2>Title #1</h2>
-                                <p>Text Content #1</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <h2>Title #2</h2>
-                                <p>Text Content #2</p>
-
-                                <label class="customCheckbox">
-                                    <input type="checkbox" id="card-checkbox">
-                                    <span class="checkboxImage">
-                                        <img src="assets/icons/circle-outline.svg" alt="Incomplete"
-                                            class="uncheckedImage" />
-                                        <img src="assets/icons/check-circle-outline.svg" alt="Complete"
-                                            class="checkedImage" />
-                                    </span>
-                                </label>
-                            </a>
-                        </li>
-                    </ul>
+                    <ul class="notes" id="note-list"></ul>
                 </td>
-                <td></td>
-                <td></td>
+                <td>
+                    <ul class="notes" id="note-list"></ul>
+                </td>
+                <td>
+                    <ul class="notes" id="note-list"></ul>
+                </td>
             </tr>
         </table>
     </main>
+    <script>
+        window.onload = function () {
+            const preloader = document.querySelector('.preloader');
+            setTimeout(function () {
+                preloader.classList.add('loaded_hiding');
+
+                setTimeout(function () {
+                    preloader.classList.add('loaded');
+                }, 300)
+            }, 300);
+        }
+    </script>
+    <script src="./scripts/load-notes.js"></script>
+    <script src="./scripts/edit-notes.js"></script>
 </body>
 
 </html>
