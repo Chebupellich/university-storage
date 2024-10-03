@@ -117,9 +117,14 @@ section h1 {
     height: 24px;
 }
 
+main {
+    height: 100%;
+}
+
 table {
     margin: 0 auto;
     width: 99%;
+    height: 100%;
     table-layout: fixed;
     border-spacing: 20px 10px;
 }
@@ -133,6 +138,10 @@ td {
 
 tr {
     width: 100%;
+}
+
+.note-row {
+    height: auto;
 }
 
 .table-header td {
@@ -150,6 +159,10 @@ tr {
     font-size: calc(1em + 1.5vh);
     font-family: 'Montserrat Bold', sans-serif;
     border-radius: 5px;
+}
+
+.create-task td {
+    height: 35px;
 }
 
 .create-task div {

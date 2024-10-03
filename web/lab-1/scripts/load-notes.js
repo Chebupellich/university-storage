@@ -1,9 +1,9 @@
 const table = document.getElementById("main-table")
 
 for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const value = JSON.parse(localStorage.getItem(key));
-
+    const key = window.localStorage.key(i);
+    const value = JSON.parse(window.localStorage.getItem(key));
+    console.log("CREATE?: ", i, key, value)
     createNote(key, value.title, value.content, value.state, table.rows[2].cells[value.column].firstElementChild)
 }
 

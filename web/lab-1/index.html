@@ -66,7 +66,7 @@
             <tr class="create-task">
                 <td>
                     <div>
-                        <input type="text" id="addTaskField-tasks" placeholder="Add task">
+                        <input type="text" id="addTaskField-tasks" placeholder="Add task" autocomplete="off">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
                         </svg>
@@ -74,7 +74,7 @@
                 </td>
                 <td>
                     <div>
-                        <input type="text" id="addTaskField-work" placeholder="Add task">
+                        <input type="text" id="addTaskField-work" placeholder="Add task" autocomplete="off">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
                         </svg>
@@ -82,14 +82,14 @@
                 </td>
                 <td>
                     <div>
-                        <input type="text" id="addTaskField-complete" placeholder="Add task">
+                        <input type="text" id="addTaskField-complete" placeholder="Add task" autocomplete="off">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
                         </svg>
                     </div>
                 </td>
             </tr>
-            <tr>
+            <tr class="note-row">
                 <td>
                     <ul class="notes" id="note-list"></ul>
                 </td>
@@ -105,13 +105,11 @@
     <script>
         window.onload = function () {
             const preloader = document.querySelector('.preloader');
-            setTimeout(function () {
-                preloader.classList.add('loaded_hiding');
+            preloader.classList.add('loaded_hiding');
 
-                setTimeout(function () {
-                    preloader.classList.add('loaded');
-                }, 300)
-            }, 300);
+            setTimeout(function () {
+                preloader.classList.add('loaded');
+            }, 300)
         }
     </script>
     <script src="./scripts/load-notes.js"></script>
