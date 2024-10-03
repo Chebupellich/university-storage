@@ -8,9 +8,14 @@ header {
     align-items: center;
     justify-content: space-between;
 
-    background-color: var(--second-background-color);
     border-bottom: 2px solid var(--third-color);
-    padding: clamp(0.5em, 2vw, 3em) clamp(1em, 2vw, 10em)
+    padding: clamp(0.5em, 2vw, 3em) clamp(1em, 2vw, 10em);
+
+    background-color: var(--second-background-color);
+    background-image: url("../assets/icons/chippi.gif");
+    background-position: 100% 40%;
+    background-repeat: no-repeat;
+    background-size: auto;
 }
 
 .main-logo {
@@ -214,7 +219,7 @@ td ul {
 }
 
 .table-tasks-col div {
-    background-color: var(--table-bg-1);
+    background-color: #D87093;
 }
 
 .table-work-col div {
