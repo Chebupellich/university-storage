@@ -9,5 +9,5 @@ func SumSub(a float32, b float32) [2]float32 {
 }
 
 func main() {
-	fmt.Println("Деление с остатком: ", SumSub(1.37, 0.63))
+	fmt.Println(SumSub(1.37, 0.63))
 }
