@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
+	"time"
 
 	"github.com/gorilla/websocket"
 	"golang.org/x/sync/errgroup"
@@ -41,7 +42,7 @@ func (cr *ChatRoom) closeClients() {
 	cr.mu.Lock()
 	defer cr.mu.Unlock()
 	for client := range cr.clients {
-		client.conn.WriteMessage(websocket.TextMessage, []byte("connection closed"))
+		client.conn.WriteControl(8, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "client disconnecting"), time.Now().Add(time.Second))
 		client.conn.Close()
 		delete(cr.clients, client)
 	}
@@ -86,7 +87,12 @@ func (c *Client) readPump(cr *ChatRoom) {
 		cr.mu.Unlock()
 	}()
 	for {
-		_, msg, err := c.conn.ReadMessage()
+		c.conn.SetReadDeadline(time.Now().Add(60 * time.Second))
+		mt, msg, err := c.conn.ReadMessage()
+		if err != nil || mt == websocket.CloseMessage {
+			break
+		}
+
 		if err != nil {
 			fmt.Println("Ошибка при чтении сообщения:", err)
 			break

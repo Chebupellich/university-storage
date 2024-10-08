@@ -2,11 +2,11 @@ package main
 
 import (
 	"bufio"
-	"context"
 	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -21,19 +21,14 @@ func main() {
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
 
-	ctx, cancel := context.WithCancel(context.Background())
-
 	go func() {
-		c := make(chan os.Signal, 1)
-		signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-
-		<-c
-		cancel()
-	}()
-
-	go func() {
+		defer conn.Close()
 		for {
-			_, msg, err := conn.ReadMessage()
+			mt, msg, err := conn.ReadMessage()
+			if mt == websocket.CloseMessage {
+				fmt.Println("Сервер завершил работу")
+				return
+			}
 			if err != nil {
 				fmt.Println("Ошибка при чтении сообщения:", err)
 				close(sig)
@@ -49,6 +44,7 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	go func() {
+		defer conn.Close()
 		for {
 			fmt.Print("> ")
 			if scanner.Scan() {
@@ -61,6 +57,15 @@ func main() {
 				}
 			}
 		}
+	}()
+
+	go func() {
+		<-sig
+		err := conn.WriteControl(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "client disconnecting"), time.Now().Add(time.Second))
+		if err != nil {
+			fmt.Println("Ошибка при отправке сообщения:", err)
+		}
+		conn.Close()
 	}()
 
 	<-sig
