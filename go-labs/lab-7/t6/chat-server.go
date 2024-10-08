@@ -1,11 +1,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
+	"os"
+	"os/signal"
 	"sync"
+	"syscall"
 
 	"github.com/gorilla/websocket"
+	"golang.org/x/sync/errgroup"
 )
 
 var upgrader = websocket.Upgrader{
@@ -29,6 +34,16 @@ func newChatRoom() *ChatRoom {
 	return &ChatRoom{
 		clients:   make(map[*Client]bool),
 		broadcast: make(chan []byte),
+	}
+}
+
+func (cr *ChatRoom) closeClients() {
+	cr.mu.Lock()
+	defer cr.mu.Unlock()
+	for client := range cr.clients {
+		client.conn.WriteMessage(websocket.TextMessage, []byte("connection closed"))
+		client.conn.Close()
+		delete(cr.clients, client)
 	}
 }
 
@@ -66,6 +81,9 @@ func handleConnection(cr *ChatRoom, w http.ResponseWriter, r *http.Request) {
 func (c *Client) readPump(cr *ChatRoom) {
 	defer func() {
 		c.conn.Close()
+		cr.mu.Lock()
+		delete(cr.clients, c)
+		cr.mu.Unlock()
 	}()
 	for {
 		_, msg, err := c.conn.ReadMessage()
@@ -91,6 +109,16 @@ func (c *Client) writePump() {
 }
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+
+	go func() {
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+
+		<-c
+		cancel()
+	}()
+
 	chatRoom := newChatRoom()
 	go chatRoom.run()
 
@@ -98,8 +126,23 @@ func main() {
 		handleConnection(chatRoom, w, r)
 	})
 
-	fmt.Println("Сервер запущен на порту 8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		fmt.Println("Ошибка при запуске сервера:", err)
+	fmt.Println("Сервер запущен на порту 8000")
+
+	httpServer := &http.Server{
+		Addr: ":8000",
+	}
+
+	g, gCtx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		return httpServer.ListenAndServe()
+	})
+	g.Go(func() error {
+		<-gCtx.Done()
+		chatRoom.closeClients()
+		return httpServer.Shutdown(context.Background())
+	})
+
+	if err := g.Wait(); err != nil {
+		fmt.Printf("exit reason: %s \n", err)
 	}
 }
