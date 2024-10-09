@@ -40,6 +40,8 @@ func TestMain(m *testing.M) {
 		fmt.Println("Error:", err)
 		return
 	}
+
+	var testUsr controllers.User
 	_, err = testDB.Collection("users").InsertOne(context.TODO(), controllers.User{
 		Id:   objectID,
 		Name: "SUPER-TEST",
@@ -48,6 +50,9 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatalf("Error inserting test user: %v", err)
 	}
+	testDB.Collection("users").FindOne(context.TODO(), bson.M{"_id": objectID}).Decode(&testUsr)
+	//fmt.Println("GET TEST USER: ", testUsr)
+
 	code := m.Run()
 
 	if err := client.Disconnect(context.TODO()); err != nil {
@@ -115,18 +120,45 @@ func TestGetUsers(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to unmarshal response: %v", err)
 	}
-	fmt.Println("LEN: ", len(users))
 	if len(users) != len(testUsers) {
 		t.Errorf("expected %d users, got %d", len(testUsers), len(users))
 	}
+}
+
+func TestGetUser(t *testing.T) {
+	router := mux.NewRouter()
+	router.HandleFunc("/users/{id}", controllers.GetUser).Methods("GET")
+
+	req, err := http.NewRequest("GET", "/users/60b6c8f1f1e2b1c3d4e5f6a7", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	router.ServeHTTP(rr, req)
+
+	var user controllers.User
+	err = json.Unmarshal(rr.Body.Bytes(), &user)
+	if err != nil {
+		t.Fatalf("failed to unmarshal response: %v\nValue: %v", err, user)
+	}
+
+	if user.Name != "SUPER-TEST" {
+		t.Errorf("handler returned wrong value: got %v want %v",
+			user.Name, "SUPER-TEST")
+	}
+}
+
+type UpdUsr struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
 }
 
 func TestUpdateUser(t *testing.T) {
 	router := mux.NewRouter()
 	router.HandleFunc("/users/{id}", controllers.UpdateUser).Methods("PUT")
 
-	user := controllers.User{Name: "Jane Doe", Age: 25}
-	body, _ := json.Marshal(user)
+	body, _ := json.Marshal(UpdUsr{Name: "aboba", Age: 3})
 
 	req, err := http.NewRequest("PUT", "/users/60b6c8f1f1e2b1c3d4e5f6a7", bytes.NewBuffer(body))
 	if err != nil {
@@ -136,6 +168,18 @@ func TestUpdateUser(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 	router.ServeHTTP(rr, req)
+
+	var user controllers.User
+
+	resp := rr.Body.Bytes()
+	if len(resp) == 0 {
+		t.Fatalf("No data in response, code: %v", rr.Code)
+	}
+
+	err = json.Unmarshal(resp, &user)
+	if err != nil {
+		t.Fatalf("failed to unmarshal response: %v\nValue: %v", err, user)
+	}
 
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",

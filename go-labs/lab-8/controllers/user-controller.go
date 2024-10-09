@@ -57,7 +57,8 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		var err error
 		page, err = strconv.Atoi(pageStr)
 		if err != nil {
-			page = 1
+			w.WriteHeader(http.StatusBadRequest)
+			return
 		}
 	}
 	if limitStr != "" {
@@ -106,18 +107,24 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	var usr User
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := mux.Vars(r)["id"]
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	err := userCollection.FindOne(ctx, bson.M{"_id": id}).Decode(&usr)
+	objectId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		handlers.HandleError(w, err, http.StatusBadRequest)
+		return
+	}
+
+	err = userCollection.FindOne(ctx, bson.M{"_id": objectId}).Decode(&usr)
 	if err != nil {
 		handlers.HandleError(w, err, http.StatusInternalServerError)
 		return
 	}
 
+	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(usr)
 }
@@ -155,10 +162,22 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(usr)
 }
 
+type UpdUsr struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
-	var usr User
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := mux.Vars(r)["id"]
+
+	var usr UpdUsr
+	upd := bson.M{"$set": bson.M{}}
+
+	objectId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		handlers.HandleError(w, err, http.StatusBadRequest)
+		return
+	}
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -167,7 +186,41 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = json.Unmarshal(body, &usr)
-	if err != nil || !ValidateInput(usr) {
+	if err != nil {
+		handlers.HandleError(w, err, http.StatusBadRequest)
+		return
+	}
+
+	if usr.Name != "" {
+		upd["$set"].(bson.M)["name"] = usr.Name
+	}
+	if usr.Age > 0 && usr.Age < 150 {
+		upd["$set"].(bson.M)["age"] = usr.Age
+	}
+
+	if len(upd["$set"].(bson.M)) == 0 {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	_, err = userCollection.UpdateOne(ctx, bson.M{"_id": objectId}, upd)
+	if err != nil {
+		handlers.HandleError(w, err, http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(User{Id: objectId, Name: usr.Name, Age: usr.Age})
+}
+
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	id := mux.Vars(r)["id"]
+
+	objectId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
 		handlers.HandleError(w, err, http.StatusBadRequest)
 		return
 	}
@@ -175,24 +228,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	_, err = userCollection.UpdateOne(ctx, bson.M{"_id": id}, bson.M{"$set": usr})
-	if err != nil {
-		handlers.HandleError(w, err, http.StatusInternalServerError)
-		return
-	}
-
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(usr)
-}
-
-func DeleteUser(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	_, err := userCollection.DeleteOne(ctx, bson.M{"_id": id})
+	_, err = userCollection.DeleteOne(ctx, bson.M{"_id": objectId})
 	if err != nil {
 		handlers.HandleError(w, err, http.StatusInternalServerError)
 		return
