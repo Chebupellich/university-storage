@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"server/controllers"
+	"server/dbconnect"
 	"server/routes"
 
 	"github.com/gorilla/mux"
@@ -13,7 +14,7 @@ import (
 var userCollection *mongo.Database
 
 func main() {
-	userCollection = DBConnect("mongodb://localhost:27017/", "sacred_base")
+	userCollection = dbconnect.DBConnect("mongodb://localhost:27017/", "sacred_base")
 	controllers.InitUserController(userCollection)
 
 	r := mux.NewRouter()

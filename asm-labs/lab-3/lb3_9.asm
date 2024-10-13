@@ -1,0 +1,13 @@
+    MVK 0xA000, A0
+    MVKLH 0x7100, A0
+
+    MVK 0xC000, A1
+    MVKLH 0x8100, A1
+
+    MPYH A0, A1, A2
+    NOP
+
+    ABS A2, A3
+
+    ADDK 0x0123, A3 
+

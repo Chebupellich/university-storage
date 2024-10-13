@@ -36,6 +36,8 @@ func main() {
 		case num, ok := <-intCh:
 			if ok {
 				fmt.Println("Создано число:", num)
+				str := <-stringCh
+				fmt.Println(str)
 			} else {
 				intCh = nil
 			}
