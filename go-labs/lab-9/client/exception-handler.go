@@ -11,5 +11,5 @@ func BadRequestError(err error) {
 }
 
 func SendRequestError(err error) {
-	fmt.Errorf("\033[31m* Can't sand request: %v\033[31m", err)
+	fmt.Errorf("\033[31m* Can't send request: %v\033[31m", err)
 }
