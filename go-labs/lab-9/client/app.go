@@ -1,28 +1,14 @@
 package main
 
-import "client/requests"
+import (
+	"client/requests"
+
+	"client/services"
+)
 
 func main() {
 	requests.CheckAuth()
-	StartAuth()
-}
+	services.StartAuth()
 
-func GetUserHandler() {
-
-}
-
-func UsersHandler() {
-
-}
-
-func CreateUserHandler() {
-
-}
-
-func UpdateUserHandler() {
-
-}
-
-func DeleteUserHandler() {
-
+	services.RunUserService()
 }
