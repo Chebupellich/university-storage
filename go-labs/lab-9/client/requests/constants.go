@@ -8,22 +8,34 @@ import (
 )
 
 type User struct {
-	Id   primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
-	Name string             `bson:"name" json:"name"`
-	Age  int                `bson:"age" json:"age"`
+	Id   primitive.ObjectID `json:"id"`
+	Name string             `json:"name"`
+	Age  int                `json:"age"`
 }
 
 type SendUser struct {
-	Name string
-	Age  int
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
+type RootAccess struct {
+	Message string `json:"message"`
+	Token   string `json:"token"`
 }
 
 var client = http.Client{
 	Timeout: 10 * time.Second,
 }
 
-const baseURL = "http://localhost:8080"
+const baseURL = "http://localhost:8080/users"
+
+type TokenResponse struct {
+	Access string `json:"Access"`
+}
 
 var accessToken string
+var refreshToken string
 
-//var refreshToken string
+var IsAuth bool = false
+
+var rootToken string

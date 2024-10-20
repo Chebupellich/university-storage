@@ -78,14 +78,16 @@ func Login() {
 			continue
 		}
 
-		resp, err := requests.Login(nick, passwd)
-		if err != nil {
+		if requests.Login(nick, passwd) {
+			fmt.Println("\033[32m --- Login successful --- \033[0m")
+		} else {
+			fmt.Println("\033[31m --- Login failed --- \033[0m")
+		}
+
+		if scanner.Scan() {
+			utils.CallClear()
 			break
 		}
-		fmt.Printf("[RESPONSE]	%s", resp.Body)
-		utils.CallClear()
-
-		break
 	}
 }
 
@@ -122,13 +124,15 @@ func Register() {
 			continue
 		}
 
-		resp, err := requests.Register(nick, passwd)
-		if err != nil {
+		if requests.Register(nick, passwd) {
+			fmt.Println("\033[32m --- Registration successful --- \033[0m")
+		} else {
+			fmt.Println("\033[31m --- Registration failed --- \033[0m")
+		}
+
+		if scanner.Scan() {
+			utils.CallClear()
 			break
 		}
-		fmt.Printf("[RESPONSE]	%s", resp.Body)
-		utils.CallClear()
-
-		break
 	}
 }

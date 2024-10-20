@@ -31,3 +31,8 @@ func GetRequestError(err error) {
 	fmt.Printf("%s ### Error while get response ### \n==============================\n%s\n==============================\n%s",
 		red, err, reset)
 }
+
+func TokenError(err error) {
+	fmt.Printf("%s ### Incorrect access token ### \n==============================\n%s\n==============================\n%s",
+		red, err, reset)
+}

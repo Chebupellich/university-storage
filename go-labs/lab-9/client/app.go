@@ -8,7 +8,13 @@ import (
 
 func main() {
 	requests.CheckAuth()
-	services.StartAuth()
 
-	services.RunUserService()
+	for {
+		if !requests.IsAuth {
+			services.StartAuth()
+			continue
+		}
+
+		services.RunUserService()
+	}
 }

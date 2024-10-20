@@ -7,7 +7,6 @@ import (
 	"io"
 	"net/http"
 	"reflect"
-	"strconv"
 	"time"
 
 	"server/handlers"
@@ -15,7 +14,6 @@ import (
 	"github.com/gorilla/mux"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -43,50 +41,17 @@ func ValidateInput(user User) bool {
 }
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("GETUSERS")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	pageStr := r.URL.Query().Get("page")
-	limitStr := r.URL.Query().Get("limit")
-	nameFilter := r.URL.Query().Get("name")
-	ageFilterStr := r.URL.Query().Get("age")
-
-	page := 1
-	limit := 10
-	if pageStr != "" {
-		var err error
-		page, err = strconv.Atoi(pageStr)
-		if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
-	}
-	if limitStr != "" {
-		var err error
-		limit, err = strconv.Atoi(limitStr)
-		if err != nil {
-			limit = 10
-		}
-	}
-
 	filter := bson.M{}
-	if nameFilter != "" {
-		filter["name"] = bson.M{"$regex": nameFilter, "$options": "i"}
-	}
-	if ageFilterStr != "" {
-		age, err := strconv.Atoi(ageFilterStr)
-		if err == nil {
-			filter["age"] = age
-		}
-	}
-	var skip int64 = int64((page - 1) * limit)
-
 	users := []User{}
 
-	opt := options.Find().SetSkip(skip).SetLimit(int64(limit))
-	cursor, err := userCollection.Find(ctx, filter, opt)
+	cursor, err := userCollection.Find(ctx, filter)
 
 	if err != nil {
+		fmt.Println("ARR: ", err)
 		handlers.HandleError(w, err, http.StatusInternalServerError)
 		return
 	}
@@ -95,6 +60,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	for cursor.Next(ctx) {
 		var usr User
 		if err := cursor.Decode(&usr); err != nil {
+			fmt.Println("ARR: ", err)
 			handlers.HandleError(w, err, http.StatusInternalServerError)
 			return
 		}
@@ -107,18 +73,12 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	var usr User
-	id := mux.Vars(r)["id"]
+	name := mux.Vars(r)["name"]
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	objectId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		handlers.HandleError(w, err, http.StatusBadRequest)
-		return
-	}
-
-	err = userCollection.FindOne(ctx, bson.M{"_id": objectId}).Decode(&usr)
+	err := userCollection.FindOne(ctx, bson.M{"name": name}).Decode(&usr)
 	if err != nil {
 		handlers.HandleError(w, err, http.StatusInternalServerError)
 		return
@@ -136,7 +96,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		handlers.HandleError(w, err, http.StatusBadRequest)
 		return
 	}
+	defer r.Body.Close()
 
+	fmt.Println("CREATE: ", string(body))
 	err = json.Unmarshal(body, &usr)
 	if err != nil {
 		handlers.HandleError(w, err, http.StatusBadRequest)
@@ -162,22 +124,11 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(usr)
 }
 
-type UpdUsr struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
-}
-
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
-	id := mux.Vars(r)["id"]
+	name := mux.Vars(r)["name"]
 
-	var usr UpdUsr
+	var usr User
 	upd := bson.M{"$set": bson.M{}}
-
-	objectId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		handlers.HandleError(w, err, http.StatusBadRequest)
-		return
-	}
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -206,29 +157,23 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	_, err = userCollection.UpdateOne(ctx, bson.M{"_id": objectId}, upd)
+	_, err = userCollection.UpdateOne(ctx, bson.M{"name": name}, upd)
 	if err != nil {
 		handlers.HandleError(w, err, http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(User{Id: objectId, Name: usr.Name, Age: usr.Age})
+	json.NewEncoder(w).Encode(User{Id: usr.Id, Name: usr.Name, Age: usr.Age})
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
-	id := mux.Vars(r)["id"]
-
-	objectId, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		handlers.HandleError(w, err, http.StatusBadRequest)
-		return
-	}
+	name := mux.Vars(r)["name"]
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	_, err = userCollection.DeleteOne(ctx, bson.M{"_id": objectId})
+	_, err := userCollection.DeleteOne(ctx, bson.M{"name": name})
 	if err != nil {
 		handlers.HandleError(w, err, http.StatusInternalServerError)
 		return
