@@ -1,0 +1,53 @@
+@import url('../assets/fonts/fonts.css');
+
+.header-wrap {
+    position: fixed;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    height: 20vh;
+    width: 100%;
+    background-color: red;
+
+    font-size: 4vh;
+    font-family: 'Montserrat Bold', sans-serif;
+}
+
+.logo-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.header-nav {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    flex-wrap: nowrap;
+    transition: max-width 0.3s ease;
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+/* @media (max-width: 600px) {
+    .burger {
+        display: block;
+    }
+} */

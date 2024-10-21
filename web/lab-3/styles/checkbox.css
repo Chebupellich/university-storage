@@ -1,0 +1,38 @@
+.checkboxImage img {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.customCheckbox input[type="checkbox"] {
+    display: none;
+}
+
+.customCheckbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.customCheckbox img {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.customCheckbox .checkboxImage {
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.customCheckbox .checkboxImage .uncheckedImage {
+    display: none;
+}
+
+.customCheckbox input[type="checkbox"]:checked+.checkboxImage .checkedImage {
+    display: none;
+}
+
+.customCheckbox input[type="checkbox"]:checked+.checkboxImage .uncheckedImage {
+    display: block;
+}

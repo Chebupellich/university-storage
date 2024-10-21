@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+:root {
+    font-size: 10px;
+    --main-background-color: #f4eeff;
+    --second-background-color: #dcd6f7;
+    --third-color: #a6b1e1;
+    --extra-color: #424874;
+    --body-color: #FFFFFF;
+    --text-color: #000000;
+
+    --table-bg-1: #6eb6ff;
+    --table-bg-2: #ffde7d;
+    --table-bg-3: #55e9bc;
+}
+
+/* :root[data-theme="light"] {} */

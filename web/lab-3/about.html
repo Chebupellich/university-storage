@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATL</title>
+    <link rel="stylesheet" href="./styles/root.css">
+    <link rel="stylesheet" href="./styles/nav-menu.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="icon" href="./assets/icons/сokkie.jpg" type="image/x-icon">
+
+</head>
+
+<body>
+    <div class="preloader">
+        <div>
+            <img src="./assets/icons/duck.gif" alt="duck">
+            <p>Загрузка...</p>
+        </div>
+    </div>
+
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="./assets/icons/og-image.webp" alt="cat">
+            <p>ATL</p>
+        </div>
+        <nav class="main-nav" id="header-nav">
+            <a href="index.html">Main</a>
+            <a href="projects.html">Projects</a>
+            <a href="tasks.html">Tasks</a>
+            <a href="about.html">About</a>
+            <a href="#" style="font-size:15px;" class="icon" onclick="toggleBurgerMenu()">&#9776;</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="smart-thoughts">
+            <article>
+                Интересно, Шеремеев может за красивые, ну или не очень красивые, глазки поставить зачет.
+                Что будет если пошутить, что он ведет ЛЕВОведение
+            </article>
+            <img src="./assets/icons/funny-cat.jpg" alt="cat">
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const preloader = document.querySelector('.preloader');
+            preloader.classList.add('loaded_hiding');
+
+            setTimeout(function () {
+                preloader.classList.add('loaded');
+            }, 300)
+        }
+    </script>
+    <script>
+        const navbar = document.querySelector('.navbar');
+        const mainContent = document.querySelector('.main-content');
+
+        function updateMargin() {
+            const navbarHeight = navbar.offsetHeight; // Получаем высоту navbar
+            mainContent.style.marginTop = `${navbarHeight}px`; // Устанавливаем отступ для main-content
+        }
+
+        updateMargin();
+        window.addEventListener('resize', updateMargin);
+    </script>
+    <script>
+        const index = window.location.pathname.lastIndexOf('/')
+        const curr = window.location.pathname.substring(index + 1)
+
+        const links = document.querySelectorAll(".main-nav a");
+        console.log(curr)
+        links.forEach(function (link) {
+            let temp = link.href.substring(link.href.lastIndexOf('/') + 1)
+            if (temp == curr) {
+                link.style.background = '#555'
+            }
+
+            link.addEventListener('click', function (e) {
+                const index = window.location.pathname.lastIndexOf('/')
+                const curr = window.location.pathname.substring(index + 1)
+
+                let temp = link.href.substring(link.href.lastIndexOf('/') + 1)
+                if (temp == curr) {
+                    e.preventDefault()
+                }
+            })
+        })
+    </script>
+    <script src="./scripts/burger.js"></script>
+</body>
+
+</html>

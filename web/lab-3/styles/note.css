@@ -1,0 +1,139 @@
+@import url('../assets/fonts/fonts.css');
+
+.notes h2 {
+    font-family: 'Montserrat Bold', sans-serif;
+    font-size: 1rem;
+
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+.notes p {
+    font-size: 1rem;
+    font-family: 'Montserrat Regular', sans-serif;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.notes,
+.notes li {
+    list-style: none;
+    opacity: 1;
+    transition: opacity .15s linear
+}
+
+.notes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    height: 100%;
+}
+
+.key-block {
+    display: none;
+}
+
+.notes li:has(input[type="checkbox"]:not(:checked)) {
+    opacity: 0.25;
+}
+
+.notes li a {
+    display: flex;
+    flex-direction: column;
+
+    text-decoration: none;
+    color: #000;
+    background: #ffc;
+    height: 10em;
+    width: 10em;
+    padding: 1em;
+
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, .2);
+    transition: transform .15s linear;
+}
+
+.notes li a p,
+.notes li a textarea {
+    flex-grow: 1;
+}
+
+
+.notes li:nth-child(even) a {
+    transform: rotate(3deg);
+    position: relative;
+    top: 5px;
+    background: #cfc;
+}
+
+.notes li:nth-child(3n) a {
+    transform: rotate(-2deg);
+    position: relative;
+    top: -5px;
+    background: #ccf;
+}
+
+.notes li:nth-child(5n) a {
+    transform: rotate(4deg);
+    position: relative;
+    top: -10px;
+}
+
+.notes li a:hover,
+.notes li a:focus {
+    box-shadow: 10px 10px 7px rgba(0, 0, 0, .25);
+    transform: scale(1.1);
+    position: relative;
+    z-index: 2;
+}
+
+.notes li {
+    margin: 1em;
+}
+
+.notes li textarea {
+    height: transparent;
+    width: transparent;
+
+    border: none;
+    background-color: transparent;
+
+    padding: 0 5px;
+
+    font-size: 100%;
+    font-family: 'Montserrat Regular', sans-serif;
+    overflow: hidden;
+
+    resize: none;
+}
+
+.notes li textarea:focus {
+    outline: none;
+}
+
+.deleteImage {
+    height: 1.5em;
+    width: 1.5em;
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.deleteImage:hover {
+    content: url('../assets/icons/delete-empty\(1\).svg');
+}
+
+.notes li a:focus-within .deleteImage,
+.notes li a:hover .deleteImage {
+    opacity: 1;
+}
+
+.noteImageGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
