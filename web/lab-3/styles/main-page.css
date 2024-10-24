@@ -1,53 +1,21 @@
 @import url('../assets/fonts/fonts.css');
 
-.header-wrap {
-    position: fixed;
-
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-
-    height: 20vh;
-    width: 100%;
-    background-color: red;
-
-    font-size: 4vh;
-    font-family: 'Montserrat Bold', sans-serif;
+.description {
+    margin-top: 80px;
+    margin-left: 40px;
 }
 
-.logo-wrap {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
+.description p {
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+
+    color: #fff;
+    text-decoration: underline;
 }
 
-.header-nav {
-    display: flex;
-    flex-direction: row;
-
-    justify-content: space-between;
-    align-items: center;
-
-    overflow: hidden;
+.description ul li {
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
-
-.nav-items {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    flex-wrap: nowrap;
-    transition: max-width 0.3s ease;
-}
-
-.burger {
-    display: none;
-    cursor: pointer;
-}
-
-/* @media (max-width: 600px) {
-    .burger {
-        display: block;
-    }
-} */

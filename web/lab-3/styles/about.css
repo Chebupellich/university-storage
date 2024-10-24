@@ -1,0 +1,36 @@
+.about {
+    margin-top: 80px;
+    margin-left: 20px;
+}
+
+.about h1 {
+    font-size: 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+
+    text-shadow: -2px 1px #FEC196;
+}
+
+.about article {
+    margin-top: 10px;
+
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.about p {
+    width: 400px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+
+    text-decoration: wavy underline;
+
+    margin: 10px 0;
+}
+
+.about img {
+    height: 400px;
+    width: 400px;
+}

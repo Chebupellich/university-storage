@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="./styles/root.css">
     <link rel="stylesheet" href="./styles/nav-menu.css">
+    <link rel="stylesheet" href="./styles/main-page.css">
     <link rel="stylesheet" href="./styles/style.css">
 
     <link rel="icon" href="./assets/icons/сokkie.jpg" type="image/x-icon">
@@ -21,19 +22,44 @@
             <p>Загрузка...</p>
         </div>
     </div>
-    <header class="navbar">
+
+    <header class="header">
         <div class="logo">
             <img src="./assets/icons/og-image.webp" alt="cat">
             <p>ATL</p>
         </div>
-        <nav class="main-nav" id="header-nav">
+        <div class="burger-wrap">
+            <div class="burger-icon" id="burger-menu" onclick="toggleBurgerMenu()">
+                <img src="./assets/icons/menu(3).svg" alt="sidebar-menu">
+            </div>
+            <nav class="main-nav" id="header-nav">
+                <a href="index.html">Main</a>
+                <a href="projects.html">Projects</a>
+                <a href="tasks.html">Tasks</a>
+                <a href="about.html">About</a>
+            </nav>
+        </div>
+        <div class="dropdown-nav" id="drop-nav">
             <a href="index.html">Main</a>
             <a href="projects.html">Projects</a>
             <a href="tasks.html">Tasks</a>
             <a href="about.html">About</a>
-            <a href="#" style="font-size:15px;" class="icon" onclick="toggleBurgerMenu()">&#9776;</a>
-        </nav>
+        </div>
     </header>
+
+    <div class="description">
+        <p>Хмм, и кто же это сделал?</p>
+        <ul>
+            <li> Фавикон (Если что, там котик с печенькой)</li>
+            <li> Шапка, логотип, меню навигации</li>
+            <li> Заголовок</li>
+            <li> Ссылки на разные страницы</li>
+            <li> Страница умк-пук не найдено</li>
+            <li> Ну там еще всякие штуки</li>
+            <li> Кстати, dlc на факторку наконец-то вышло, а времени нет поиграть(</li>
+        </ul>
+    </div>
+
     <div class="main-content">
         <div class="smart-thoughts">
             <article>
@@ -44,10 +70,50 @@
         </div>
 
         <div class="smart-thoughts">
-            <img src="./assets/icons/cat-sos.jpg" alt="cat">
+            <img src="./assets/icons/Code snippets-cuate.svg" alt="code snippets">
+        </div>
+
+        <div class="smart-thoughts">
             <article>
                 Ххавхахвха, тут по прежнему ничего умного
             </article>
+            <img src="./assets/icons/cat-sos.jpg" alt="cat">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/time-managment.svg" alt="time-managment">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/about_cat.gif" alt="cat">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/duck.gif" alt="duck">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/image_2024-07-27_23-51-01.png" alt="emanuel-transmission">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/395850ac9b4015b233ef181c9a0addfc.png" alt="emanuel-transmission">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/og-image.webp" alt="emanuel-transmission">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/header-cat.gif" alt="emanuel-transmission">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/morning.jpg" alt="emanuel-transmission">
+        </div>
+
+        <div class="smart-thoughts">
+            <img src="./assets/icons/up.jpg" alt="emanuel-transmission">
         </div>
     </div>
 
@@ -61,41 +127,7 @@
             }, 300)
         }
     </script>
-    <script>
-        const navbar = document.querySelector('.navbar');
-        const mainContent = document.querySelector('.main-content');
 
-        function updateMargin() {
-            const navbarHeight = navbar.offsetHeight; // Получаем высоту navbar
-            mainContent.style.marginTop = `${navbarHeight}px`; // Устанавливаем отступ для main-content
-        }
-
-        updateMargin();
-        window.addEventListener('resize', updateMargin);
-    </script>
-    <script>
-        const index = window.location.pathname.lastIndexOf('/')
-        const curr = window.location.pathname.substring(index + 1)
-
-        const links = document.querySelectorAll(".main-nav a");
-        console.log(curr)
-        links.forEach(function (link) {
-            let temp = link.href.substring(link.href.lastIndexOf('/') + 1)
-            if (temp == curr) {
-                link.style.background = '#555'
-            }
-
-            link.addEventListener('click', function (e) {
-                const index = window.location.pathname.lastIndexOf('/')
-                const curr = window.location.pathname.substring(index + 1)
-
-                let temp = link.href.substring(link.href.lastIndexOf('/') + 1)
-                if (temp == curr) {
-                    e.preventDefault()
-                }
-            })
-        })
-    </script>
     <script src="./scripts/burger.js"></script>
 </body>
 

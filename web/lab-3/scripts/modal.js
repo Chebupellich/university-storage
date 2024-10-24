@@ -1,15 +1,33 @@
-const openDialogButton = document.getElementById('openDialog');
+const openDialogButton = document.querySelectorAll('.add-task-icon');
 const taskDialog = document.getElementById('taskDialog');
 const closeDialogButton = document.getElementById('closeDialog');
 
 const addTaskButton = document.getElementById('add-task-btn')
 const text = document.getElementById('taskName')
 
-openDialogButton.addEventListener('click', () => {
-    taskDialog.showModal();
-    document.body.style.overflow = 'hidden';
-    document.body.classList.add('modal-open');
-});
+let currCol = 0
+
+openDialogButton.forEach(function (plus) {
+    plus.addEventListener('click', () => {
+
+        const input = plus.previousElementSibling
+
+        if (input.value !== '') {
+            const col = input.parentNode.parentNode.cellIndex
+            const cell = document.getElementById('main-table').rows[2].cells[col]
+            if (cell) {
+                createNoteElement(input.value, cell.firstElementChild)
+                input.value = ''
+            }
+            return
+        }
+
+        currCol = plus.parentNode.parentNode.cellIndex
+        taskDialog.showModal();
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-open');
+    })
+})
 
 closeDialogButton.addEventListener('click', () => {
     taskDialog.close();
@@ -26,7 +44,8 @@ taskDialog.addEventListener('click', (event) => {
 });
 
 addTaskButton.addEventListener('click', e => {
-    const cell = document.getElementById('main-table').rows[2].cells[0]
+    const cell = document.getElementById('main-table').rows[2].cells[currCol]
+    console.log(currCol, cell)
     if (cell) {
         createNoteElement(text.value, cell.firstElementChild)
     }

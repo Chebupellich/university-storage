@@ -127,6 +127,11 @@
     content: url('../assets/icons/delete-empty\(1\).svg');
 }
 
+.customCheckbox img {
+    height: 1.5em;
+    width: 1.5em;
+}
+
 .notes li a:focus-within .deleteImage,
 .notes li a:hover .deleteImage {
     opacity: 1;
@@ -136,4 +141,94 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+@media (min-width: 1080px) {
+    .notes li a {
+        height: 15em;
+        width: 15em;
+        padding: 1.5em;
+    }
+
+    .notes h2 {
+        font-size: 1.5em;
+    }
+
+    .notes p {
+        font-size: 1.5em;
+    }
+
+    .notes li {
+        margin: 1.5em;
+    }
+
+    .deleteImage {
+        height: 2.25em;
+        width: 2.25em;
+    }
+
+    .customCheckbox img {
+        height: 2.25em;
+        width: 2.25em;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .notes li a {
+        height: 8em;
+        width: 8em;
+        padding: 0.8em;
+    }
+
+    .notes h2 {
+        font-size: 0.8rem;
+    }
+
+    .notes p {
+        font-size: 0.8rem;
+    }
+
+    .notes li {
+        margin: 0.8em;
+    }
+
+    .deleteImage {
+        height: 1.2em;
+        width: 1.2em;
+    }
+
+    .customCheckbox img {
+        height: 1.2em;
+        width: 1.2em;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .notes li a {
+        height: 5em;
+        width: 5em;
+        padding: 0.5em;
+    }
+
+    .notes h2 {
+        font-size: 0.5rem;
+    }
+
+    .notes p {
+        font-size: 0.5rem;
+    }
+
+    .notes li {
+        margin: 0.5em;
+    }
+
+    .deleteImage {
+        height: 0.7em;
+        width: 0.7em;
+    }
+
+    .customCheckbox img {
+        height: 0.7em;
+        width: 0.7em;
+    }
 }

@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATL</title>
+    <link rel="stylesheet" type="text/css" href="./styles/preload.css" />
+
     <link rel="stylesheet" href="./styles/root.css">
     <link rel="stylesheet" href="./styles/nav-menu.css">
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/about.css">
+
     <link rel="icon" href="./assets/icons/сokkie.jpg" type="image/x-icon">
 
 </head>
@@ -21,28 +25,55 @@
     </div>
 
 
-    <header class="navbar">
+    <header class="header">
         <div class="logo">
             <img src="./assets/icons/og-image.webp" alt="cat">
             <p>ATL</p>
         </div>
-        <nav class="main-nav" id="header-nav">
+        <div class="burger-wrap">
+            <div class="burger-icon" id="burger-menu" onclick="toggleBurgerMenu()">
+                <img src="./assets/icons/menu(3).svg" alt="sidebar-menu">
+            </div>
+            <nav class="main-nav" id="header-nav">
+                <a href="index.html">Main</a>
+                <a href="projects.html">Projects</a>
+                <a href="tasks.html">Tasks</a>
+                <a href="about.html">About</a>
+            </nav>
+        </div>
+        <div class="dropdown-nav" id="drop-nav">
             <a href="index.html">Main</a>
             <a href="projects.html">Projects</a>
             <a href="tasks.html">Tasks</a>
             <a href="about.html">About</a>
-            <a href="#" style="font-size:15px;" class="icon" onclick="toggleBurgerMenu()">&#9776;</a>
-        </nav>
+        </div>
     </header>
 
-    <div class="main-content">
-        <div class="smart-thoughts">
+    <div class="about">
+        <h1>Анекдот из интернетов</h1>
+        <article>
+            МУЖСКОЙ РЕЦЕПТ ШАРЛОТКИ (простого яблочного пирога).
+            Возьмите из холодильника 10 яиц, положите на стол оставшиеся семь и вытрите пол. Возьмите большую миску и
+            разбейте об ее край яйца. Вылейте их содержимое в миску. Протрите стол. Итак, у вас в миске 5 яиц. Теперь
+            возьмите миксер, вставьте венчики и начните взбивать. Попробуйте еще раз вставить венчики, теперь до щелчка.
+            Взбивайте. Вымойте лицо, шею, руки, спину, уши. В итоге у вас в миске осталось два взбитых яйца. Обклейте
+            стены
+            и потолок кухни газетой, накройте мебель какой-нибудь тканью – пора доставать муку… Насыпьте 200 г в стакан,
+            затем высыпьте в миску. Оставшиеся 800 г аккуратно соберите обратно в пакет. Взбивайте. Примите душ.
+            Возьмите 4
+            больших яблока и нож. Приготовьте йод, пластырь и бинт. Очистите яблоки. Обработайте большой палец йодом и
+            забинтуйте его. Нарежьте яблоки кубиками и помните, вам понадобится 2 яблока, так что в процессе готовки
+            можно
+            съесть только половину. Обработайте йодом указательный и средний пальцы. Единственное оставшееся и уже
+            нарезанное яблоко сбросьте в миску, подберите с пола упавшие кусочки, помойте их и тоже положите в миску.
+            Взбивайте все миксером. Отмойте холодильник. Теперь выливайте содержимое в сковородку и ставьте в духовку.
+            Подождите час и, не увидев ощутимых изменений, включите духовку. Проснувшись, не звоните в Службу спасения,
+            а
+            просто выключите духовку и откройте окна...
             <article>
-                Интересно, Шеремеев может за красивые, ну или не очень красивые, глазки поставить зачет.
-                Что будет если пошутить, что он ведет ЛЕВОведение
-            </article>
-            <img src="./assets/icons/funny-cat.jpg" alt="cat">
-        </div>
+
+                <p>Ну а кто дочитал до конца, молодец, держи крутую гифку</p>
+                <img src="./assets/icons/besito-catlove.gif" alt="cat">
     </div>
 
     <script>
@@ -54,41 +85,6 @@
                 preloader.classList.add('loaded');
             }, 300)
         }
-    </script>
-    <script>
-        const navbar = document.querySelector('.navbar');
-        const mainContent = document.querySelector('.main-content');
-
-        function updateMargin() {
-            const navbarHeight = navbar.offsetHeight; // Получаем высоту navbar
-            mainContent.style.marginTop = `${navbarHeight}px`; // Устанавливаем отступ для main-content
-        }
-
-        updateMargin();
-        window.addEventListener('resize', updateMargin);
-    </script>
-    <script>
-        const index = window.location.pathname.lastIndexOf('/')
-        const curr = window.location.pathname.substring(index + 1)
-
-        const links = document.querySelectorAll(".main-nav a");
-        console.log(curr)
-        links.forEach(function (link) {
-            let temp = link.href.substring(link.href.lastIndexOf('/') + 1)
-            if (temp == curr) {
-                link.style.background = '#555'
-            }
-
-            link.addEventListener('click', function (e) {
-                const index = window.location.pathname.lastIndexOf('/')
-                const curr = window.location.pathname.substring(index + 1)
-
-                let temp = link.href.substring(link.href.lastIndexOf('/') + 1)
-                if (temp == curr) {
-                    e.preventDefault()
-                }
-            })
-        })
     </script>
     <script src="./scripts/burger.js"></script>
 </body>
